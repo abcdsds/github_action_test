@@ -1,0 +1,19 @@
+name: Pre-Merge Branch Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  branch-name-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Source Branch Name
+        run: |
+          PR_BRANCH="${{ github.head_ref }}"
+          if [[ $PR_BRANCH =~ ^release-2\.[0-9]+$ ]]; then
+            echo "::error::PRs from 'release-2.x' branches to 'main' are not allowed."
+            exit 1
+          else
+            echo "Source branch name is valid for merging into main."
