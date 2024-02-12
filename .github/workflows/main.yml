@@ -17,3 +17,4 @@ jobs:
             exit 1
           else
             echo "Source branch name is valid for merging into main."
+          fi
